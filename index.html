@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Emath quiz applet</title>
+        <meta charset="UTF-8">
+        <link type="text/css" rel="stylesheet" media="all" href="style.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="mathquill/mathquill.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="jsxgraph.css" />
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="mathquill/mathquill.js"></script>
+        <script type="text/javascript" src="jsxgraphcore.js"></script>
+        <script type="text/javascript" src="jquery.emathquiz.js"></script>
+        <script type="text/javascript">
+            jQuery(function(){
+                jQuery('#box1').emathquiz({
+                    title: "Angles of triangles",
+                    overlay: false,
+                    func: [
+                        Quizes.triangletype_image
+                        //Quizes.angletype_image,
+                        //Quizes.segment_image,
+                        //Quizes.triangle_multi,
+                        //Quizes.triangle_short,
+                        //Quizes.triangle_string
+                    ]
+                });
+                jQuery('#box2').emathquiz({
+                    title: "Kulmien tyypit",
+                    overlay: false,
+                    func: [
+                        Quizes.angletype_image
+                    ]
+                });
+                jQuery('#box3').emathquiz({
+                    title: "Sträckan",
+                    overlay: false,
+                    func: [
+                        Quizes.segment_image
+                    ]
+                });
+                jQuery('#box4').emathquiz({
+                    title: "Triangles: multichoise",
+                    overlay: false,
+                    func: [
+                        Quizes.triangle_multi
+                    ]
+                });
+                jQuery('#box5').emathquiz({
+                    title: "Triangles: multichoise and shortanswer",
+                    overlay: false,
+                    func: [
+                        Quizes.triangle_multi,
+                        Quizes.triangle_short
+                        //Quizes.triangle_string
+                    ]
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+            <div id="head-content">
+                <img id="logo" src="images/emath-logo.png" alt="E-Math" />
+                <h1>Emathquiz</h1>
+                <h2>Create mathematical quizes</h2>
+            </div>
+        </header>
+        <a href="https://github.com/e-math/emathquiz"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+        <div id="mathquillpanel"></div>
+        <article class="content">
+            <p>EmathQuiz is a tool for creating different kind of quizes.
+            It depends on <a href="http://jquery.com">jQuery</a>, <a href="http://jsxgraph.uni-bayreuth.de/">JSXGraph</a>
+            and <a href="http://mathquill.com">MathQuill</a>.
+            Optionally <code>mqpanel.js</code> can also be used.</p>
+            
+            <p>One questionset or -type is a function that returns a randomized question object.
+            Question object includes the question text, possible image (or data for drawing that image),
+            feedbacks for correct and wrong answers and a function that checks the users answer.
+            Questionsets are given to EmathQuiz as an array of these functions. EmathQuiz gets
+            question after another from these sets by selecting functions randomly from this array
+            and executing them.</p>
+
+            <p>Possible question types include: multichoise questions, short answer questions and
+            questions that are answered by manipulating the given image. There are some example
+            questionsets built in <code>jquery.emathquiz.js</code>.</p>
+            
+            <p>Here are couple of examples, how to use <code>emathquiz.js</code>.</p>
+
+            
+
+            <h2>Example 1: Interactive images</h2>
+            <p>Quiz questions can have interactive images that the user can manipulate.
+            The correctness of the answer is determined from the image.</p>
+<div class="codeexample">
+&lt;div id="box1"&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+    jQuery('#box1').emathquiz({
+        title: "Angles of triangles",
+        overlay: false,
+        func: [Quizes.triangletype_image]
+    });
+&lt;/script&gt;
+</div>
+            <div id="box1" lang="en"></div>
+            
+            
+            
+            <h2>Example 2: Support for localization</h2>
+            <p>The system support localization of quizes. The language is determined by
+            finding the closest parent in DOM-tree, that has <code>lang</code>-attribute
+            set.</p>
+            <p>Built-in quizes support English, Finnish and Swedish. Adding languages is easy.</p>
+<div class="codeexample">
+&lt;div id="box2" lang="fi"&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+    jQuery('#box2').emathquiz({
+        title: "Kulmien tyypit",
+        overlay: false,
+        func: [
+            Quizes.angletype_image
+        ]
+    });
+&lt;/script&gt;
+</div>
+            <div id="box2" lang="fi"></div>
+            
+            
+            <h2>Example 3: Division of a segment</h2>
+            <p>Image and question text can have different layout. The feedback can give a detailed correct answer.</p>
+<div class="codeexample">
+&lt;div id="box3" lang="sv"&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+    jQuery('#box3').emathquiz({
+        title: "sträckan",
+        overlay: false,
+        func: [Quizes.segment_image]
+    });
+&lt;/script&gt;
+</div>
+            <div id="box3" lang="sv"></div>
+            
+            
+            
+            <h2>Example 4: Multichoise answers</h2>
+            <p>EmathQuiz supports also other answertypes like multichoise and short answer.</p>
+<div class="codeexample">
+&lt;div id="box4"&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+    jQuery('#box4').emathquiz({
+        title: "Angles of triangles",
+        overlay: false,
+        func: [
+            Quizes.triangle_multi
+        ]
+    });
+&lt;/script&gt;
+</div>
+            <div id="box4" lang="en"></div>
+            
+            
+            
+            <h2>Example 5: Shortanswer and multiple questionsets</h2>
+            <p>Multiple questionsets can be combined in the same quiz.</p>
+            <p>Short answer type uses MathQuill for input.</p>
+<div class="codeexample">
+&lt;div id="box5"&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+    jQuery('#box5').emathquiz({
+        title: "Angles of triangles",
+        overlay: false,
+        func: [
+            Quizes.triangle_multi,
+            Quizes.triangle_short
+        ]
+    });
+&lt;/script&gt;
+</div>
+            <div id="box5" lang="en"></div>
+            
+            
+        </article>
+        <footer>
+            <div id="disclaimerbox">
+                <div id="leftlogo">
+                    <img src="images/CB_logo-200.png" alt="" />
+                </div>
+                <div id="rightlogo">
+                    <img src="images/EU_with_references-300.png" alt="" />
+                </div>
+                <div id="disclaimer">
+                    The contents of the website reflect the authors' views. The Managing Authority of the Central Baltic INTERREG IVA Programme cannot be held liable for the information published by the project partners. 
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
